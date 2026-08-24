@@ -17,6 +17,8 @@ import java.rmi.RemoteException;
 @WebServlet("/register")
 public class Register extends HttpServlet {
 
+    private static final double DEFAULT_OPENING_BALANCE = 1000.00;
+
     @EJB
     private RegisterService registerService;
 
@@ -28,7 +30,7 @@ public class Register extends HttpServlet {
 
         try {
 
-            registerService.registerUser(name,email,password);
+            registerService.registerUser(name,email,password,DEFAULT_OPENING_BALANCE);
             req.setAttribute("message", "User registered successfully.");
 
             req.getRequestDispatcher("/login.jsp").forward(req, resp);
