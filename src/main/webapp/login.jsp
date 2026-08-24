@@ -23,13 +23,39 @@
 
 <form action="login" method="post">
 
-    <label for="email"> Please Enter Your Email Address:</label>
-    <input type="email" id="email" name="email" required>
-    <br>
-    <label for="password">Please Enter Your Password:</label>
-    <input type="password" id="password" name="password" required>
-    <br>
-    <input type="submit" value="Login">
+    <table>
+        <tr>
+            <th>Email</th>
+            <td>
+                <input type="email" id="email" name="email" required>
+
+            </td>
+        </tr>
+
+        <tr>
+            <th>Password</th>
+            <td>
+                <input type="password" id="password" name="password" required>
+
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+
+            <td>
+                <input type="submit" value="Login">
+
+            </td>
+        </tr>
+    </table>
+
+<%--    <label for="email"> Please Enter Your Email Address:</label>--%>
+<%--    <input type="email" id="email" name="email" required>--%>
+<%--    <br>--%>
+<%--    <label for="password">Please Enter Your Password:</label>--%>
+<%--    <input type="password" id="password" name="password" required>--%>
+<%--    <br>--%>
+<%--    <input type="submit" value="Login">--%>
 
 </form>
 
