@@ -1,24 +1,35 @@
 package lk.jiat.bcd.jta.bank.ejb;
 
 
+import jakarta.ejb.EJB;
 import jakarta.ejb.Stateless;
+import jakarta.ejb.TransactionAttribute;
+import jakarta.ejb.TransactionAttributeType;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import lk.jiat.bcd.jta.bank.ejb.remote.AccountService;
 import lk.jiat.bcd.jta.bank.ejb.remote.RegisterService;
+import lk.jiat.bcd.jta.bank.entity.AccountType;
 import lk.jiat.bcd.jta.bank.entity.User;
 import lk.jiat.bcd.jta.bank.exception.DuplicateEmailException;
 
+import java.math.BigDecimal;
 import java.rmi.RemoteException;
 
 @Stateless
+@TransactionAttribute(TransactionAttributeType.REQUIRED)
 public class RegisterServiceBean implements RegisterService {
 
     @PersistenceContext(unitName = "BankPU" )
     private EntityManager em;
 
+    @EJB
+    private AccountService accountService;
+
+
 
     @Override
-    public void registerUser(String name, String email, String password) throws DuplicateEmailException {
+    public void registerUser(String name, String email, String password, double openingBalance) throws DuplicateEmailException {
 
         long existing = em.createNamedQuery("User.findByEmail" , User.class)
                 .setParameter("email",email)
@@ -37,6 +48,8 @@ public class RegisterServiceBean implements RegisterService {
 
         em.persist(user);
         em.flush();
+
+        accountService.createAccount(email, AccountType.SAVINGS, new BigDecimal(openingBalance));
 
 
 
