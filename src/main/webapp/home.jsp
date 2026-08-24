@@ -29,22 +29,25 @@
     <% List<Account> accounts = (List<Account>) request.getAttribute("accounts");
 
     if (accounts == null || accounts.isEmpty()) { %>
-               <p>You have no accounts. <a href="create-account">Create One</a></p> } else { %>
+               <p>You have no accounts. <a href="create-account">Create One</a></p>
+    <% } else { %>
         <table border="1">
             <tr>
                 <th>Account Number</th>
                 <th>Account Type</th>
                 <th>Balance</th>
+                <th>Action</th>
             </tr>
             <% for (Account account : accounts) { %>
                 <tr>
                     <td><%= account.getAccNo() %></td>
                     <td><%= account.getAccountType() %></td>
                     <td><%= account.getBalance() %></td>
+                    <td><a href="history?accNo=<%= account.getAccNo() %>">View Transaction History</a></td>
                 </tr>
-
-
-                                 <div><a href="history?accNo=<%= account.getAccNo() %>">View Transaction History</a></div>       <% } %> %>
+            <% } %>
+        </table>
+    <% } %>
 
 </body>
 </html>
