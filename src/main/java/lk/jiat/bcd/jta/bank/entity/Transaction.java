@@ -6,31 +6,38 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "transactions")
+@NamedQueries({
+        @NamedQuery(name = "Transaction.findByAccountNo",
+                    query = "SELECT t FROM Transaction t WHERE t.accoutNo = :accountNo ORDER BY t.timestamp DESC")
+})
 public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
     @Column(nullable = false)
-    private String fromAccountNo;;
+    private String accoutNo;;
 
     private String relatedAccountNo;
 
     @Enumerated(EnumType.STRING)
-    private TransactionType transactionType;
+    private TransactionType type;
 
-    private double amout;
+    private double amount;
+
+    private double balanceAfter;
 
     private LocalDateTime timestamp;
 
     public Transaction() {
     }
 
-    public Transaction(String fromAccountNo, String relatedAccountNo, TransactionType transactionType, double amout) {
-        this.fromAccountNo = fromAccountNo;
+    public Transaction(String accoutNo, TransactionType type, double amout, double balanceAfter, String relatedAccountNo) {
+        this.accoutNo = accoutNo;
+        this.type = type;
+        this.amount = amout;
+        this.balanceAfter = balanceAfter;
         this.relatedAccountNo = relatedAccountNo;
-        this.transactionType = transactionType;
-        this.amout = amout;
         this.timestamp = LocalDateTime.now();
     }
 
@@ -38,17 +45,35 @@ public class Transaction {
         return id;
     }
 
+    public String getAccoutNo() {
+        return accoutNo;
+    }
+
+    public void setAccoutNo(String accoutNo) {
+        this.accoutNo = accoutNo;
+    }
+
+    public TransactionType getType() {
+        return type;
+    }
+
+    public void setType(TransactionType type) {
+        this.type = type;
+    }
+
+    public double getBalanceAfter() {
+        return balanceAfter;
+    }
+
+    public void setBalanceAfter(double balanceAfter) {
+        this.balanceAfter = balanceAfter;
+    }
+
     public void setId(Integer id) {
         this.id = id;
     }
 
-    public String getFromAccountNo() {
-        return fromAccountNo;
-    }
 
-    public void setFromAccountNo(String fromAccountNo) {
-        this.fromAccountNo = fromAccountNo;
-    }
 
     public String getRelatedAccountNo() {
         return relatedAccountNo;
@@ -58,20 +83,13 @@ public class Transaction {
         this.relatedAccountNo = relatedAccountNo;
     }
 
-    public TransactionType getTransactionType() {
-        return transactionType;
+
+    public double getAmount() {
+        return amount;
     }
 
-    public void setTransactionType(TransactionType transactionType) {
-        this.transactionType = transactionType;
-    }
-
-    public double getAmout() {
-        return amout;
-    }
-
-    public void setAmout(double amout) {
-        this.amout = amout;
+    public void setAmount(double amount) {
+        this.amount = amount;
     }
 
     public LocalDateTime getTimestamp() {
