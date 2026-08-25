@@ -17,6 +17,7 @@
     <a href="dashboard"> Dashboard</a>
     <a href="deposit"> Deposit</a>
     <a href="withdraw"> Withdraw</a>
+    <a href="transfer"> Transfer</a>
     <a href="create-account"> New Account</a>
     <a href="logout"> Logout</a>
 </naV>
@@ -43,7 +44,7 @@
                     <td><%= account.getAccNo() %></td>
                     <td><%= account.getAccountType() %></td>
                     <td><%= account.getBalance() %></td>
-                    <td><a href="history?accNo=<%= account.getAccNo() %>">View Transaction History</a></td>
+                    <td><a href="history?accountNo=<%= account.getAccNo() %>">View Transaction History</a></td>
                 </tr>
             <% } %>
         </table>
